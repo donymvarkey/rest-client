@@ -17,16 +17,7 @@ import Body from "./bodyTab";
 import Headers from "./headersTab";
 import { useSelector } from "react-redux";
 
-const ApiRequest = ({
-  onSelect,
-  selectedMethod,
-  onChange,
-  onSend,
-  // url,
-  setUrl,
-  requestBody,
-  setRequestBody,
-}) => {
+const ApiRequest = ({ onSelect, selectedMethod, onChange, onSend }) => {
   const { url } = useSelector((state) => state.appConfig);
   return (
     <div className="w-full h-full">
@@ -85,7 +76,7 @@ const ApiRequest = ({
             <Params />
           </TabsContent>
           <TabsContent value="body">
-            <Body json={requestBody} setJson={setRequestBody} />
+            <Body />
           </TabsContent>
           <TabsContent value="headers">
             <Headers />

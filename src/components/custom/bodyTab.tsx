@@ -1,20 +1,26 @@
+import { useState } from "react";
 import JSONCodeEditor from "./jsonEditor";
+import { useDispatch } from "react-redux";
+import { setRequestBody } from "@/store/configSlice";
 
-const Body = ({ json, setJson }: { json: object; setJson: () => {} }) => {
+const Body = () => {
+  const [bodyJson, setBodyJson] = useState("");
+  const dispatch = useDispatch();
   const handleChange = (value: string) => {
-    // const parsedJson = JSON.parse(value);
-    setJson(value);
+    setBodyJson(value);
+  };
+
+  const onBlur = () => {
+    const parsedJson = JSON.parse(bodyJson);
+    dispatch(setRequestBody(parsedJson));
   };
   return (
     <div>
-      {/* <Textarea
-        // defaultValue={json}
-        onChange={(e) => handleChange(e.target.value)}
-        rows={10}
-        placeholder="..."
-        className="w-full p-2 border border-zinc-600 rounded font-mono"
-      /> */}
-      <JSONCodeEditor onChange={handleChange} value={undefined} />
+      <JSONCodeEditor
+        onBlur={onBlur}
+        onChange={handleChange}
+        value={undefined}
+      />
     </div>
   );
 };
