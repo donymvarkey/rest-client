@@ -1,9 +1,12 @@
 import { useState } from "react";
 import JSONCodeEditor from "./jsonEditor";
-import { useDispatch } from "react-redux";
-import { setRequestBody } from "@/store/configSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ConfigState, setRequestBody } from "@/store/configSlice";
 
 const Body = () => {
+  const { body } = useSelector(
+    ({ appConfig }: { appConfig: ConfigState }) => appConfig
+  );
   const [bodyJson, setBodyJson] = useState("");
   const dispatch = useDispatch();
   const handleChange = (value: string) => {
@@ -19,7 +22,7 @@ const Body = () => {
       <JSONCodeEditor
         onBlur={onBlur}
         onChange={handleChange}
-        value={undefined}
+        value={body || undefined}
       />
     </div>
   );

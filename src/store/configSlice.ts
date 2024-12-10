@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type ConfigState = {
+export type ConfigState = {
   params: Array<any>;
   headers: Array<any>;
   body: object;
@@ -43,6 +43,12 @@ const configSlice = createSlice({
     clearRequestBody: (state) => {
       state.body = {};
     },
+    setHeaders: (state, action) => {
+      state.headers = action.payload;
+    },
+    clearHeaders: (state) => {
+      state.headers = [];
+    },
   },
 });
 
@@ -54,6 +60,8 @@ export const {
   setBaseUrl,
   setRequestBody,
   clearRequestBody,
+  setHeaders,
+  clearHeaders,
 } = configSlice.actions;
 
 export default configSlice.reducer;
