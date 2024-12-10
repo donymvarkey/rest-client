@@ -5,7 +5,7 @@ import { Plus, Trash, Trash2 } from "lucide-react";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import { useDispatch, useSelector } from "react-redux";
-import { setUrl } from "@/store/configSlice";
+import { setUrl, setUrlParams } from "@/store/configSlice";
 
 const Params = () => {
   const [params, setParams] = useState([]);
@@ -22,12 +22,13 @@ const Params = () => {
       key: "",
       value: "",
     };
-
+    dispatch(setUrlParams(newParam));
     setParams([...params, newParam]);
   };
 
   const handleDeleteParam = (id: string) => {
     setParams((prevParams) => prevParams.filter((param) => param?.id !== id));
+    dispatch(setUrlParams([...params]));
     if (params?.length === 0) {
       dispatch(setUrl(baseUrl));
     }
@@ -47,17 +48,17 @@ const Params = () => {
     setUpdatedUrl(newUrl);
     setUrl(newUrl);
     dispatch(setUrl(newUrl));
-
-    console.log("🚀 ~ createNewHttpUrlWithParams ~ newUrl:", newUrl);
   };
 
   const handleDeleteAll = () => {
     setParams([]);
     dispatch(setUrl(baseUrl));
+    dispatch(setUrlParams([]));
   };
 
   const onBlur = () => {
     createNewHttpUrlWithParams();
+    dispatch(setUrlParams([...params]));
   };
 
   // useEffect(() => {

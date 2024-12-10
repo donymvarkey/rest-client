@@ -22,11 +22,11 @@ const configSlice = createSlice({
   name: "config",
   initialState,
   reducers: {
-    setUrlParams: (state, action: PayloadAction<object>) => {
-      state.params = [...state.params, action.payload];
+    setUrlParams: (state, action) => {
+      state.params = action.payload;
     },
     deleteUrlParams: (state, action) => {
-      state.params = [...action.payload];
+      state.params = action.payload;
     },
     deleteAllParams: (state) => {
       state.params = [];
@@ -37,6 +37,12 @@ const configSlice = createSlice({
     setBaseUrl: (state, action: PayloadAction<string>) => {
       state.baseUrl = action.payload;
     },
+    setRequestBody: (state, action: PayloadAction<object>) => {
+      state.body = action.payload;
+    },
+    clearRequestBody: (state) => {
+      state.body = {};
+    },
   },
 });
 
@@ -46,6 +52,8 @@ export const {
   deleteAllParams,
   setUrl,
   setBaseUrl,
+  setRequestBody,
+  clearRequestBody,
 } = configSlice.actions;
 
 export default configSlice.reducer;

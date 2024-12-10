@@ -13,11 +13,10 @@ const Layout = () => {
   const [method, setSelectedMethod] = useState("get");
   const [httpUrl, setHttpUrl] = useState("");
   const [response, setResponse] = useState({});
-  const [requestBody, setRequestBody] = useState({});
   const [headers, setHeaders] = useState({});
   const dispatch = useDispatch();
 
-  const { url } = useSelector((state) => state.appConfig);
+  const { url, body } = useSelector((state) => state.appConfig);
 
   const onSelectHttpMethod = (method: string) => {
     setSelectedMethod(method);
@@ -34,12 +33,7 @@ const Layout = () => {
   };
 
   const onSendHttpRequest = async () => {
-    const httpResponse = await sendApiRequest(
-      method,
-      url,
-      headers,
-      requestBody
-    );
+    const httpResponse = await sendApiRequest(method, url, headers, body);
     setResponse(httpResponse);
   };
 
@@ -61,8 +55,6 @@ const Layout = () => {
               onChange={onUrlInputChange}
               onSend={onSendHttpRequest}
               setUrl={setHttpUrl}
-              requestBody={requestBody}
-              setRequestBody={setRequestBody}
             />
           </div>
           <div className="lg:w-6/12 w-full h-1/2 lg:h-full lg:border-0 border-zinc-600 lg:border-l lg:border-t-0 border-t">
