@@ -48,7 +48,8 @@ export const getStatusBadgeColor = (status: number) => {
 };
 
 export const getStatusText = (status: number) => {
-  return STATUS_TEXT[status];
+  const statusString = String(status);
+  return STATUS_TEXT[statusString];
 };
 
 export const generateRandomUuid = () => {
@@ -64,14 +65,16 @@ export function appendQueryParams(url: string, params: object) {
   const existingParams = qs.parse(query);
 
   // Convert the array of params to an object and merge with existing ones
-  const newParams = params.reduce((acc, { key, value }) => {
-    acc[key] = value;
-    return acc;
-  }, existingParams);
+  const newParams = params.reduce(
+    (acc: any, { key, value }: { key: string; value: string }) => {
+      acc[key] = value;
+      return acc;
+    },
+    existingParams
+  );
 
   // Stringify the updated query parameters
   const updatedQuery = qs.stringify(newParams);
-  console.log("🚀 ~ appendQueryParams ~ updatedQuery:", updatedQuery);
 
   // Return the updated URL
   return `${baseUrl}?${updatedQuery}`;

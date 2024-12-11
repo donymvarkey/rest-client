@@ -23,3 +23,6 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   // You can expose other APTs you need here.
   // ...
 });
+electron.contextBridge.exposeInMainWorld("api", {
+  insertRequest: (request) => electron.ipcRenderer.invoke("insert-request", request)
+});
