@@ -33,7 +33,7 @@ async function sendApiRequest(
       timeTaken: timeTaken.toFixed(2), // Time taken in milliseconds
       requestConfig: response.config, // Original request configuration
     };
-  } catch (error) {
+  } catch (error: any) {
     const endTime = performance.now();
     const timeTaken = endTime - startTime;
 

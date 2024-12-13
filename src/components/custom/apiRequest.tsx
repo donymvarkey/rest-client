@@ -16,9 +16,12 @@ import Params from "./paramsTab";
 import Body from "./bodyTab";
 import Headers from "./headersTab";
 import { useSelector } from "react-redux";
+import { ConfigState } from "@/store/configSlice";
 
 const ApiRequest = ({ onSelect, selectedMethod, onChange, onSend }) => {
-  const { url } = useSelector((state) => state.appConfig);
+  const { url } = useSelector(
+    ({ appConfig }: { appConfig: ConfigState }) => appConfig
+  );
   return (
     <div className="w-full h-full">
       <div className="flex flex-row items-center h-12 w-full gap-x-3 px-3 py-2 justify-between">

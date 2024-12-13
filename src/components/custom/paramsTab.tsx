@@ -1,23 +1,31 @@
 import { appendQueryParams, generateRandomUuid } from "@/utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Plus, Trash, Trash2 } from "lucide-react";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import { useDispatch, useSelector } from "react-redux";
-import { setUrl, setUrlParams } from "@/store/configSlice";
+import { ConfigState, setUrl, setUrlParams } from "@/store/configSlice";
+
+type ParamsType = {
+  id: string;
+  key: string;
+  value: string;
+};
 
 const Params = () => {
-  const [params, setParams] = useState([]);
+  const [params, setParams] = useState<ParamsType[]>([]);
   const [updatedUrl, setUpdatedUrl] = useState("");
   const dispatch = useDispatch();
-  const { url, baseUrl } = useSelector((state) => state.appConfig);
+  const { url, baseUrl } = useSelector(
+    ({ appConfig }: { appConfig: ConfigState }) => appConfig
+  );
 
   const addNewParam = () => {
-    if (params.key !== "") {
+    if (params?.key !== "") {
       createNewHttpUrlWithParams();
     }
-    const newParam = {
+    const newParam: ParamsType = {
       id: generateRandomUuid(),
       key: "",
       value: "",
@@ -36,7 +44,6 @@ const Params = () => {
 
   const handleInputChange = (id: string, field: string, value: string) => {
     setParams((prevParams) => {
-      console.log("🚀 ~ handleInputChange ~ prevParams:", prevParams);
       return prevParams.map((param) =>
         param.id === id ? { ...param, [field]: value } : param
       );
@@ -61,9 +68,6 @@ const Params = () => {
     dispatch(setUrlParams([...params]));
   };
 
-  // useEffect(() => {
-
-  // }, [params]);
   return (
     <div className="w-full py-1 px-2">
       {/* URL preview on when adding params */}

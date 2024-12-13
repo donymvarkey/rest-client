@@ -4,8 +4,7 @@ import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 
-const ApiResponse = ({ response }) => {
-  console.log("🚀 ~ ApiResponse ~ response:", response);
+const ApiResponse = ({ response }: { response: any }) => {
   return (
     <div className="text-xs w-full h-full">
       {!isObjectEmpty(response) && (

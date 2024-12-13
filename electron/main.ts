@@ -1,8 +1,12 @@
-import { app, BrowserWindow, screen } from "electron";
+import { app, BrowserWindow, screen, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import Database from "better-sqlite3";
+
+process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+let db: Database.Database;
 
 // The built directory structure
 //
@@ -67,8 +71,44 @@ app.on("activate", () => {
   }
 });
 
+app.on("ready", () => {
+  const dbPath = path.join(app.getPath("userData"), "app.db");
+  db = new Database(dbPath);
+  console.log("Connected to SQLite database.");
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS history (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      request_type TEXT NOT NULL,
+      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+      request_body TEXT,
+      request_params TEXT,
+      request_headers TEXT
+    )
+  `);
+  createWindow();
+});
+
 app.whenReady().then(() => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
   createWindow(width, height);
+});
+
+ipcMain.handle("insert-request", (_event, request) => {
+  try {
+    const stmt = db.prepare(`
+      INSERT INTO requests (url, request_type, request_body, request_params, request_headers)
+      VALUES (@url, @request_type, @request_body, @request_params, @request_headers)
+    `);
+
+    const result = stmt.run(request);
+
+    console.log("Data inserted successfully:", result.lastInsertRowid);
+
+    return { id: result.lastInsertRowid, ...request };
+  } catch (err: any) {
+    console.error("Error inserting data:", err.message);
+  }
 });
