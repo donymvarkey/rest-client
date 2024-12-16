@@ -8,7 +8,12 @@ export const getHttpMethodTextColor = (method: string) => {
   );
 
   // Return the color if found, or a default color
-  return methodObj ? methodObj.color : "text-black";
+  return methodObj ? methodObj.color : "text-green-500";
+};
+
+export const getHttpMethodShorts = (method: string) => {
+  const methodObj = HTTP_METHODS.find((m) => m?.label === method);
+  return methodObj?.short;
 };
 
 export const validateUrl = (url: string) => {

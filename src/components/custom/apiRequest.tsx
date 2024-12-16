@@ -15,23 +15,30 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Params from "./paramsTab";
 import Body from "./bodyTab";
 import Headers from "./headersTab";
-import { useSelector } from "react-redux";
-import { ConfigState } from "@/store/configSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ConfigState, setMethod } from "@/store/configSlice";
 
-const ApiRequest = ({ onSelect, selectedMethod, onChange, onSend }) => {
-  const { url } = useSelector(
+const ApiRequest = ({ onChange, onSend }) => {
+  const dispatch = useDispatch();
+  const { url, method } = useSelector(
     ({ appConfig }: { appConfig: ConfigState }) => appConfig
   );
+
   return (
     <div className="w-full h-full">
       <div className="flex flex-row items-center h-12 w-full gap-x-3 px-3 py-2 justify-between">
-        <Select onValueChange={(value) => onSelect(value)}>
+        <Select
+          defaultValue={`${method}`}
+          onValueChange={(value) => {
+            dispatch(setMethod(value));
+          }}
+        >
           <SelectTrigger
             className={`w-[150px] border-0 shadow-none h-7 ${getHttpMethodTextColor(
-              selectedMethod
+              method
             )} font-semibold font-code`}
           >
-            <SelectValue placeholder={HTTP_METHODS[0].label} />
+            <SelectValue className="text-white" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>

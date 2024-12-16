@@ -819,7 +819,6 @@ app.on("activate", () => {
 });
 app.on("ready", () => {
   const dbPath = path.join(app.getPath("userData"), "app.db");
-  console.log("🚀 ~ app.whenReady ~ dbPath:", dbPath);
   db = new Database(dbPath);
   console.log("Connected to SQLite database.");
   db.exec(`

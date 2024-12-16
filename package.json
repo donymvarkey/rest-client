@@ -2,7 +2,7 @@
   "name": "rest-client",
   "description": "A REST API client built with electron, vite, react, tailwind-css and shadcn ui",
   "private": true,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "author": {
     "email": "donyvarkey@gmail.com",
@@ -48,6 +48,8 @@
     "better-sqlite3": "^11.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dexie": "^4.0.10",
+    "dexie-react-hooks": "^1.1.7",
     "lucide-react": "^0.462.0",
     "query-string": "^9.1.1",
     "react": "^18.3.1",
