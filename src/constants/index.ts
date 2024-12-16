@@ -1,13 +1,13 @@
 const HTTP_METHODS = [
-  { label: "GET", value: "get", color: "text-green-500" },
-  { label: "POST", value: "post", color: "text-blue-500" },
-  { label: "PUT", value: "put", color: "text-yellow-500" },
-  { label: "PATCH", value: "patch", color: "text-orange-500" },
-  { label: "DELETE", value: "delete", color: "text-red-500" },
-  { label: "OPTIONS", value: "options", color: "text-gray-500" },
-  { label: "HEAD", value: "head", color: "text-green-300" },
-  { label: "TRACE", value: "trace", color: "text-teal-500" },
-  { label: "CONNECT", value: "connect", color: "text-purple-500" },
+  { label: "GET", value: "get", color: "text-green-500", short: "GET" },
+  { label: "POST", value: "post", color: "text-blue-500", short: "POST" },
+  { label: "PUT", value: "put", color: "text-yellow-500", short: "PUT" },
+  { label: "PATCH", value: "patch", color: "text-orange-500", short: "PTCH" },
+  { label: "DELETE", value: "delete", color: "text-red-500", short: "DEL" },
+  { label: "OPTIONS", value: "options", color: "text-gray-500", short: "OPT" },
+  { label: "HEAD", value: "head", color: "text-green-300", short: "HEAD" },
+  // { label: "TRACE", value: "trace", color: "text-teal-500", short: "GET" },
+  // { label: "CONNECT", value: "connect", color: "text-purple-500", short: "GET" },
 ];
 const STATUS_TEXT = {
   "200": "OK",

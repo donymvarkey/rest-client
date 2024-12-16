@@ -7,6 +7,7 @@ export type ConfigState = {
   baseUrl: string;
   url: string;
   history: Array<any>;
+  method: string;
 };
 
 const initialState: ConfigState = {
@@ -16,6 +17,7 @@ const initialState: ConfigState = {
   baseUrl: "",
   url: "",
   history: [],
+  method: "get",
 };
 
 const configSlice = createSlice({
@@ -49,6 +51,9 @@ const configSlice = createSlice({
     clearHeaders: (state) => {
       state.headers = [];
     },
+    setMethod: (state, action) => {
+      state.method = action.payload;
+    },
   },
 });
 
@@ -62,6 +67,7 @@ export const {
   clearRequestBody,
   setHeaders,
   clearHeaders,
+  setMethod,
 } = configSlice.actions;
 
 export default configSlice.reducer;

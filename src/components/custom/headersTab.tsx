@@ -26,7 +26,7 @@ const Headers = () => {
       key: "",
       value: "",
     };
-    dispatch(setHeaders(newHeader));
+    dispatch(setHeaders([newHeader]));
     setReqHeaders([...headers, newHeader]);
   };
 
@@ -84,36 +84,37 @@ const Headers = () => {
       </div>
 
       <div className="flex flex-col w-full gap-y-1 mt-2">
-        {reqHeaders?.map((header: HeaderType) => (
-          <div className="flex flex-col" key={header?.id}>
-            <div className="flex items-center justify-between gap-x-2">
-              <Input
-                defaultValue={header?.key}
-                placeholder="Key"
-                className="border-0 placeholder:text-xs text-zinc-100 focus-visible:ring-0 font-medium font-nunito shadow-none"
-                onChange={(e) =>
-                  handleInputChange(header?.id, "key", e.target.value)
-                }
-              />
-              <Input
-                defaultValue={header?.value}
-                placeholder="Value"
-                onBlur={onBlur}
-                className="border-0 placeholder:text-xs text-zinc-100 focus-visible:ring-0 font-medium font-nunito shadow-none"
-                onChange={(e) =>
-                  handleInputChange(header?.id, "value", e.target.value)
-                }
-              />
-              <Button
-                onClick={() => handleDeleteParam(header?.id)}
-                className="bg-transparent text-zinc-200 hover:bg-transparent py-0 hover:text-red-500"
-              >
-                <Trash />
-              </Button>
+        {headers.length > 0 &&
+          headers?.map((header: HeaderType) => (
+            <div className="flex flex-col" key={header?.id}>
+              <div className="flex items-center justify-between gap-x-2">
+                <Input
+                  defaultValue={header?.key}
+                  placeholder="Key"
+                  className="border-0 placeholder:text-xs text-zinc-100 focus-visible:ring-0 font-medium font-nunito shadow-none"
+                  onChange={(e) =>
+                    handleInputChange(header?.id, "key", e.target.value)
+                  }
+                />
+                <Input
+                  defaultValue={header?.value}
+                  placeholder="Value"
+                  onBlur={onBlur}
+                  className="border-0 placeholder:text-xs text-zinc-100 focus-visible:ring-0 font-medium font-nunito shadow-none"
+                  onChange={(e) =>
+                    handleInputChange(header?.id, "value", e.target.value)
+                  }
+                />
+                <Button
+                  onClick={() => handleDeleteParam(header?.id)}
+                  className="bg-transparent text-zinc-200 hover:bg-transparent py-0 hover:text-red-500"
+                >
+                  <Trash />
+                </Button>
+              </div>
+              <Separator className="bg-zinc-700" />
             </div>
-            <Separator className="bg-zinc-700" />
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
