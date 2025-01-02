@@ -1,3 +1,4 @@
+import { HTTP_METHODS } from "@/constants";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type ConfigState = {
@@ -7,7 +8,7 @@ export type ConfigState = {
   baseUrl: string;
   url: string;
   history: Array<any>;
-  method: string;
+  method: object;
 };
 
 const initialState: ConfigState = {
@@ -17,7 +18,7 @@ const initialState: ConfigState = {
   baseUrl: "",
   url: "",
   history: [],
-  method: "get",
+  method: HTTP_METHODS[0],
 };
 
 const configSlice = createSlice({
@@ -46,7 +47,7 @@ const configSlice = createSlice({
       state.body = {};
     },
     setHeaders: (state, action) => {
-      state.headers = action.payload;
+      state.headers = [...state.headers, action.payload];
     },
     clearHeaders: (state) => {
       state.headers = [];
