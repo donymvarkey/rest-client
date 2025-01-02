@@ -15,7 +15,7 @@ import {
   setUrl,
 } from "@/store/configSlice";
 import { useEffect, useState } from "react";
-import { CheckCircle, Folder, SaveIcon } from "lucide-react";
+import { CheckCircle, Folder, SaveIcon, Send } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -133,15 +133,16 @@ const ApiRequest = ({ onSend }: ApiRequestProps) => {
         <Separator orientation="vertical" className="h-7 bg-zinc-600" />
         <Button
           onClick={() => setShowCollectionDialog(true)}
-          className="font-nunito"
+          className="font-nunito text-xs"
         >
           <SaveIcon />
           Save
         </Button>
         <Button
           onClick={onSend}
-          className=" bg-blue-500 text-white font-nunito font-semibold text-sm hover:bg-blue-600"
+          className=" bg-blue-500 text-white font-nunito font-semibold text-xs hover:bg-blue-600"
         >
+          <Send />
           Send
         </Button>
       </div>
