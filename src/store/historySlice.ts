@@ -12,7 +12,7 @@ const historySlice = createSlice({
   name: "history",
   initialState,
   reducers: {
-    addToHistory: (state, action: PayloadAction) => {
+    addToHistory: (state, action: PayloadAction<object[]>) => {
       state.history = action.payload;
     },
     clearHistory: (state) => {

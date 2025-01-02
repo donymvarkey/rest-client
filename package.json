@@ -2,7 +2,7 @@
   "name": "ez-rest",
   "description": "A REST API client built with electron, vite, react, tailwind-css and shadcn ui",
   "private": true,
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "author": {
     "email": "donyvarkey@gmail.com",
@@ -10,17 +10,15 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "rebuild": "electron-rebuild -f -w better-sqlite3",
     "preview": "vite preview",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
   "build": {
-    "appId": "com.elementx.restclient.app",
-    "productName": "Rest Client",
+    "appId": "com.ezrest.app",
+    "productName": "Ez Rest",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -46,6 +44,7 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.4",
     "@radix-ui/react-tooltip": "^1.1.5",
     "@reduxjs/toolkit": "^2.4.0",
     "@uiw/codemirror-theme-github": "^4.23.6",

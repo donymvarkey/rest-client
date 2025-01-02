@@ -22,7 +22,7 @@ const Params = () => {
   );
 
   const addNewParam = () => {
-    if (params?.key !== "") {
+    if (params.length > 0 && params[params.length - 1].key !== "") {
       createNewHttpUrlWithParams();
     }
     const newParam: ParamsType = {

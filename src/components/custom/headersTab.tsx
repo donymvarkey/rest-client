@@ -26,7 +26,7 @@ const Headers = () => {
       key: "",
       value: "",
     };
-    dispatch(setHeaders([newHeader]));
+    dispatch(setHeaders([...headers, newHeader]));
     setReqHeaders([...headers, newHeader]);
   };
 

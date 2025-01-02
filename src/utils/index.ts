@@ -2,6 +2,12 @@ import { v4 as uuidv4 } from "uuid";
 import { HTTP_METHODS, STATUS_TEXT } from "@/constants";
 import qs from "query-string";
 
+type HeaderObject = {
+  id: String;
+  key: String;
+  value: String;
+};
+
 export const getHttpMethodTextColor = (method: string) => {
   const methodObj = HTTP_METHODS.find(
     (m) => m.value.toLowerCase() === method.toLowerCase()
@@ -54,14 +60,17 @@ export const getStatusBadgeColor = (status: number) => {
 
 export const getStatusText = (status: number) => {
   const statusString = String(status);
-  return STATUS_TEXT[statusString];
+  return STATUS_TEXT[statusString as keyof typeof STATUS_TEXT];
 };
 
 export const generateRandomUuid = () => {
   return uuidv4();
 };
 
-export function appendQueryParams(url: string, params: object) {
+export function appendQueryParams(
+  url: string,
+  params: Array<{ key: string; value: string }>
+) {
   // Parse the current query parameters from the URL
   // if (params.length === 0) {
   //   return url;
@@ -84,3 +93,30 @@ export function appendQueryParams(url: string, params: object) {
   // Return the updated URL
   return `${baseUrl}?${updatedQuery}`;
 }
+
+export const generateCurlRequest = (
+  method: string,
+  url: string,
+  headers: Array<HeaderObject>,
+  body: object,
+  params: Array<object>
+) => {
+  let curlCommand = `curl -X ${method.toUpperCase()} "${url}"`;
+
+  if (headers && headers.length > 0) {
+    headers.forEach((header: HeaderObject) => {
+      curlCommand += ` -H ${header?.key}: ${header?.value}`;
+    });
+  }
+
+  if (body && Object.keys(body).length > 0) {
+    curlCommand += ` -d '${JSON.stringify(body)}'`;
+  }
+
+  if (params && params.length > 0) {
+    const queryString = qs.stringify(params);
+    curlCommand += `?${queryString}`;
+  }
+  navigator.clipboard.writeText(curlCommand);
+  console.log("cURL command copied to clipboard:", curlCommand);
+};
