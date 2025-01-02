@@ -4,7 +4,6 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "./database";
 import { addToHistory } from "./store/historySlice";
 import { useEffect } from "react";
-import LogRocket from "logrocket";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    LogRocket.init("m1xx7k/test-dev");
     hydrateHistory();
   }, [historyData]);
 

@@ -12,7 +12,7 @@ const collectionSlice = createSlice({
   name: "collection",
   initialState,
   reducers: {
-    addToCollection: (state, action: PayloadAction) => {
+    addToCollection: (state, action: PayloadAction<Array<object>>) => {
       state.collection = action.payload;
     },
     clearCollection: (state) => {

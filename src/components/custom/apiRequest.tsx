@@ -1,4 +1,4 @@
-import Select from "react-select";
+import Select, { SingleValue } from "react-select";
 import { HTTP_METHODS, METHOD_COLORS, TABS } from "@/constants";
 import { Separator } from "../ui/separator";
 import { Input } from "../ui/input";
@@ -8,7 +8,12 @@ import Params from "./paramsTab";
 import Body from "./bodyTab";
 import Headers from "./headersTab";
 import { useDispatch, useSelector } from "react-redux";
-import { ConfigState, setMethod } from "@/store/configSlice";
+import {
+  ConfigState,
+  setBaseUrl,
+  setMethod,
+  setUrl,
+} from "@/store/configSlice";
 import { useEffect, useState } from "react";
 import { CheckCircle, Folder, SaveIcon } from "lucide-react";
 import {
@@ -19,37 +24,62 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { createCollection } from "@/database/dbApi";
+import { validateUrl } from "@/utils";
+import {
+  ApiRequestProps,
+  CollectionType,
+  HttpMethodType,
+  InputChangeEvent,
+  SelectOption,
+} from "@/types";
 
-const ApiRequest = ({ onSend, onChange }) => {
+const ApiRequest = ({ onSend }: ApiRequestProps) => {
   const dispatch = useDispatch();
   const { url, method } = useSelector(
     ({ appConfig }: { appConfig: ConfigState }) => appConfig
   );
-  const { collection } = useSelector((state) => state.collection);
+  const { collection } = useSelector(
+    (state: { collection: any }) => state.collection
+  );
+
   const [httpMethod, setHttpMethod] = useState(method);
   const [showCollectionDialog, setShowCollectionDialog] = useState(false);
-  const [selectedCollection, setSelectedCollection] = useState({});
+  const [selectedCollection, setSelectedCollection] =
+    useState<CollectionType | null>(null);
   const [newCollection, setNewCollection] = useState(false);
   const [collectionName, setCollectionName] = useState("");
 
-  const getColor = (data: object) => {
-    return METHOD_COLORS[data.value];
+  const getColor = (data: SelectOption) => {
+    return METHOD_COLORS[data.value as keyof typeof METHOD_COLORS];
   };
 
-  const handleChangeSelect = (value: object) => {
-    dispatch(setMethod(value));
+  const handleChangeSelect = (newValue: SingleValue<HttpMethodType>) => {
+    if (newValue) {
+      setHttpMethod(newValue);
+      dispatch(setMethod(newValue));
+    }
+  };
+
+  const handleInputChange = (e: InputChangeEvent) => {
+    const { value } = e.target;
+    let validatedUrl = "";
+    if (value.length !== 0) {
+      validatedUrl = validateUrl(value);
+    }
+    dispatch(setUrl(validatedUrl));
+    dispatch(setBaseUrl(validatedUrl));
   };
 
   useEffect(() => {
     setHttpMethod(method);
-  }, [method, httpMethod]);
+  }, [method]);
 
   return (
     <div className="w-full h-full">
       <div className="flex flex-row items-center h-12 w-full gap-x-3 px-3 py-2 justify-between border-0 border-b border-zinc-600">
         <Select
           styles={{
-            control: (baseStyles, state) => ({
+            control: (baseStyles) => ({
               ...baseStyles,
               width: "140px",
               borderColor: "transparent",
@@ -88,16 +118,16 @@ const ApiRequest = ({ onSend, onChange }) => {
               color: "#9ca3af",
             }),
           }}
+          onChange={(newValue) => handleChangeSelect(newValue)}
           value={httpMethod}
           placeholder={"Select"}
-          onChange={handleChangeSelect}
           options={HTTP_METHODS}
         />
         <Separator orientation="vertical" className="h-7 bg-zinc-600" />
         <Input
           defaultValue={url}
           placeholder="Enter URL"
-          onChange={(e) => onChange(e.target.value)}
+          onChange={handleInputChange}
           className="border-0 text-zinc-100 focus-visible:ring-0 font-medium font-nunito shadow-none h-7 text-ellipsis"
         />
         <Separator orientation="vertical" className="h-7 bg-zinc-600" />
@@ -153,28 +183,21 @@ const ApiRequest = ({ onSend, onChange }) => {
                 Save to
               </h3>
               <div className="font-nunito font-normal text-zinc-400 text-xs flex-1">
-                {Object.keys(selectedCollection).length > 0 ? (
-                  <div>
+                {selectedCollection &&
+                Object.keys(selectedCollection).length > 0 ? (
+                  <div className="flex items-center gap-x-1">
                     <span
-                      onClick={() => setSelectedCollection({})}
+                      onClick={() => setSelectedCollection(null)}
                       className="hover:cursor-pointer hover:text-zinc-500"
                     >
                       My Workspace
                     </span>
-                    /<span>{selectedCollection?.name}</span>
+                    <span>/{selectedCollection?.name || ""}</span>
                   </div>
                 ) : (
                   "Select a collection or create new"
                 )}
               </div>
-              {/* {Object.keys(selectedCollection).length > 0 && (
-                <Button
-                  onClick={() => setSelectedCollection({})}
-                  className="bg-transparent hover:bg-transparent shadow-none text-slate-800 float-end border"
-                >
-                  <Trash2 className="text-red-500 w-1 h-1" />
-                </Button>
-              )} */}
             </DialogDescription>
           </DialogHeader>
           <Separator className="w-full bg-slate-300 rounded-md" />
@@ -215,7 +238,7 @@ const ApiRequest = ({ onSend, onChange }) => {
                 </div>
               )}
               <div className="flex flex-col px-3 py-3 text-[14px] font-nunito text-medium text-slate-600 gap-y-2">
-                {collection?.map((c) => (
+                {collection?.map((c: CollectionType) => (
                   <div
                     onClick={() => setSelectedCollection(c)}
                     key={c?.id}

@@ -1,10 +1,30 @@
-import { getStatusBadgeColor, getStatusText, isObjectEmpty } from "@/utils";
+import {
+  generateCurlRequest,
+  getStatusBadgeColor,
+  getStatusText,
+  isObjectEmpty,
+} from "@/utils";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
+import { useSelector } from "react-redux";
+import { useToast } from "@/hooks/use-toast";
+import { ConfigState } from "@/store/configSlice";
 
 const ApiResponse = ({ response }: { response: any }) => {
+  const { toast } = useToast();
+  const { url, body, headers, method, params } = useSelector(
+    ({ appConfig }: { appConfig: ConfigState }) => appConfig
+  );
+  const createCurlRequest = () => {
+    generateCurlRequest(method?.label, url, headers, body, params);
+    toast({
+      title: "Success",
+      description: "cURL command copied to clipboard",
+    });
+  };
   return (
     <div className="text-xs w-full h-full">
       {!isObjectEmpty(response) && (
@@ -30,6 +50,12 @@ const ApiResponse = ({ response }: { response: any }) => {
                 <span>{`${response?.headers?.["content-length"]} B`}</span>
               </Badge>
             )}
+            <Button
+              onClick={createCurlRequest}
+              className="font-nunito bg-blue-500"
+            >
+              Generate cURL
+            </Button>
           </div>
           <Separator className="w-full bg-zinc-600" />
           <div className="px-2">

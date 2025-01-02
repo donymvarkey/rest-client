@@ -27,12 +27,14 @@ import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { db } from "@/database";
+import { HistoryItem } from "@/types";
 
 const RequestHistory = () => {
   const { history } = useSelector((state: any) => state.history);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const dispatch = useDispatch();
-  const handleSelectFromHistory = (history: object) => {
+
+  const handleSelectFromHistory = (history: HistoryItem) => {
     dispatch(setBaseUrl(history?.url));
     dispatch(setUrl(history?.url));
     dispatch(setUrlParams(history?.params));
@@ -110,9 +112,10 @@ const RequestHistory = () => {
               >
                 <div className="flex items-center justify-center w-[10%]">
                   <Badge
-                    className={`bg-transparent shadow-none px-0 text-[0.8rem] text-slate-800 font-code hover:bg-transparent ${getHttpMethodTextColor(
-                      h?.method?.label
-                    )}`}
+                    className={`bg-transparent text-right w-full
+                       shadow-none px-0 text-[0.8rem] text-slate-800 font-code hover:bg-transparent ${getHttpMethodTextColor(
+                         h?.method?.label
+                       )}`}
                   >
                     {getHttpMethodShorts(h?.method?.label)}
                   </Badge>

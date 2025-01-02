@@ -16,7 +16,7 @@ const NewCollection = ({
   onOpenChange,
 }: {
   open: boolean;
-  onOpenChange: void;
+  onOpenChange: () => void;
 }) => {
   const [collectionName, setCollectionName] = useState("");
 
