@@ -4,15 +4,19 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "./database";
 import { addToHistory } from "./store/historySlice";
 import { useEffect } from "react";
+import LogRocket from "logrocket";
 
 const App = () => {
   const dispatch = useDispatch();
-  const historyData = useLiveQuery(() => db.history.toArray());
+  const historyData = useLiveQuery(() =>
+    db.history.reverse().sortBy("createdAt")
+  );
   const hydrateHistory = () => {
     historyData?.length && dispatch(addToHistory([...historyData]));
   };
 
   useEffect(() => {
+    LogRocket.init("m1xx7k/test-dev");
     hydrateHistory();
   }, [historyData]);
 

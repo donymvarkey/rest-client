@@ -18,7 +18,7 @@ const Layout = () => {
   const [response, setResponse] = useState({});
   const dispatch = useDispatch();
 
-  const { history } = useSelector((state: any) => state.history);
+  const { collection } = useSelector((state: any) => state.collection);
 
   const onUrlInputChange = (url: string) => {
     const validatedUrl = validateUrl(url);
@@ -41,7 +41,12 @@ const Layout = () => {
           })
       );
     }
-    const httpResponse = await sendApiRequest(method, url, reqHeaders, body);
+    const httpResponse = await sendApiRequest(
+      method?.value,
+      url,
+      reqHeaders,
+      body
+    );
     setResponse(httpResponse);
     const historyData = {
       id: generateRandomUuid(),
@@ -72,16 +77,16 @@ const Layout = () => {
       <Separator className="w-full bg-zinc-600" />
       <div className="flex-1 bg-zinc-800 flex  rounded-br-md rounded-bl-md">
         <div className="min-w-[20%] border-0 border-zinc-600 border-r border-b">
-          <History history={history} />
+          <History collection={collection} />
         </div>
         <div className="min-w-[80%] flex flex-col h-full lg:flex-row border-0 border-zinc-600 border-r">
-          <div className="lg:w-6/12 w-full min-h-1/3 lg:h-full">
+          <div className="lg:w-7/12 w-full min-h-1/3 lg:h-full">
             <ApiRequest
               onChange={onUrlInputChange}
               onSend={onSendHttpRequest}
             />
           </div>
-          <div className="lg:w-6/12 w-full h-1/2 lg:h-full lg:border-0 border-zinc-600 lg:border-l lg:border-t-0 border-t">
+          <div className="lg:w-5/12 w-full h-1/2 lg:h-full lg:border-0 border-zinc-600 lg:border-l lg:border-t-0 border-t">
             <ApiResponse response={response} />
           </div>
         </div>

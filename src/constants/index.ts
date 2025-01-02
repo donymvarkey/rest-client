@@ -4,11 +4,21 @@ const HTTP_METHODS = [
   { label: "PUT", value: "put", color: "text-yellow-500", short: "PUT" },
   { label: "PATCH", value: "patch", color: "text-orange-500", short: "PTCH" },
   { label: "DELETE", value: "delete", color: "text-red-500", short: "DEL" },
-  { label: "OPTIONS", value: "options", color: "text-gray-500", short: "OPT" },
-  { label: "HEAD", value: "head", color: "text-green-300", short: "HEAD" },
+  { label: "OPTIONS", value: "options", color: "text-teal-500", short: "OPT" },
+  { label: "HEAD", value: "head", color: "text-purple-500", short: "HEAD" },
   // { label: "TRACE", value: "trace", color: "text-teal-500", short: "GET" },
   // { label: "CONNECT", value: "connect", color: "text-purple-500", short: "GET" },
 ];
+
+const METHOD_COLORS = {
+  get: "#22c55e",
+  put: "#eab308",
+  post: "#3b82f6",
+  delete: "#ef4444",
+  patch: "#f97316",
+  head: "#a855f7",
+  options: "#14b8a6",
+};
 const STATUS_TEXT = {
   "200": "OK",
   "201": "Created",
@@ -43,4 +53,4 @@ const TABS = [
   },
 ];
 
-export { HTTP_METHODS, STATUS_TEXT, TABS };
+export { HTTP_METHODS, STATUS_TEXT, TABS, METHOD_COLORS };
