@@ -1,8 +1,8 @@
 {
-  "name": "rest-client",
+  "name": "ez-rest",
   "description": "A REST API client built with electron, vite, react, tailwind-css and shadcn ui",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "author": {
     "email": "donyvarkey@gmail.com",
@@ -13,7 +13,10 @@
     "build": "vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "rebuild": "electron-rebuild -f -w better-sqlite3",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "build": {
     "appId": "com.elementx.restclient.app",
@@ -49,12 +52,11 @@
     "@uiw/codemirror-themes-all": "^4.23.6",
     "@uiw/react-codemirror": "^4.23.6",
     "axios": "^1.7.8",
-    "better-sqlite3": "^11.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dexie": "^4.0.10",
     "dexie-react-hooks": "^1.1.7",
-    "logrocket": "^9.0.0",
+    "electron-squirrel-startup": "^1.0.1",
     "lucide-react": "^0.462.0",
     "query-string": "^9.1.1",
     "react": "^18.3.1",
@@ -68,7 +70,14 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.12",
+    "@electron-forge/cli": "^7.6.0",
+    "@electron-forge/maker-deb": "^7.6.0",
+    "@electron-forge/maker-rpm": "^7.6.0",
+    "@electron-forge/maker-squirrel": "^7.6.0",
+    "@electron-forge/maker-zip": "^7.6.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.6.0",
+    "@electron-forge/plugin-fuses": "^7.6.0",
+    "@electron/fuses": "^1.8.0",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -78,7 +87,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "electron": "^33.2.1",
-    "electron-builder": "^25.1.8",
     "electron-rebuild": "^3.2.9",
     "eslint": "^9.16.0",
     "eslint-plugin-react-hooks": "^5.0.0",
