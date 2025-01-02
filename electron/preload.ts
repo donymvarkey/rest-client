@@ -24,7 +24,3 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
   // You can expose other APTs you need here.
   // ...
 });
-contextBridge.exposeInMainWorld("api", {
-  insertRequest: (request: Record<string, unknown>) =>
-    ipcRenderer.invoke("insert-request", request),
-});
