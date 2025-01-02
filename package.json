@@ -1,8 +1,8 @@
 {
-  "name": "ez-rest",
+  "name": "restly",
   "description": "A REST API client built with electron, vite, react, tailwind-css and shadcn ui",
   "private": true,
-  "version": "1.0.8",
+  "version": "1.0.9",
   "type": "module",
   "author": {
     "email": "donyvarkey@gmail.com",
@@ -17,8 +17,8 @@
     "make": "electron-forge make"
   },
   "build": {
-    "appId": "com.ezrest.app",
-    "productName": "Ez Rest",
+    "appId": "com.restly.app",
+    "productName": "Restly",
     "files": [
       "build/**/*",
       "node_modules/**/*",

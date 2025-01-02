@@ -4,7 +4,7 @@ const { FuseV1Options, FuseVersion } = require("@electron/fuses");
 module.exports = {
   packagerConfig: {
     asar: true,
-    name: "Ez Rest",
+    name: "Restly",
     appCategoryType: "public.app-category.developer-tools",
   },
   rebuildConfig: {},
