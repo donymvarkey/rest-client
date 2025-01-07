@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { HTTP_METHODS, STATUS_TEXT } from "@/constants";
 import qs from "query-string";
+import { AuthHeadersType } from "@/types";
 
 type HeaderObject = {
   id: String;
@@ -105,7 +106,7 @@ export const generateCurlRequest = (
 
   if (headers && headers.length > 0) {
     headers.forEach((header: HeaderObject) => {
-      curlCommand += ` -H ${header?.key}: ${header?.value}`;
+      curlCommand += ` -H "${header?.key}: ${header?.value}"`;
     });
   }
 
@@ -119,4 +120,16 @@ export const generateCurlRequest = (
   }
   navigator.clipboard.writeText(curlCommand);
   console.log("cURL command copied to clipboard:", curlCommand);
+};
+
+export const createAuthHeaders = (authType: string, auth: AuthHeadersType) => {
+  switch (authType) {
+    case "noauth":
+      return null;
+    case "bearer":
+      return { Authorization: `Bearer ${auth?.token}` };
+    case "basic":
+      const encoded = btoa(`${auth?.username}:${auth.password}`);
+      return { Authorization: `Basic ${encoded}` };
+  }
 };

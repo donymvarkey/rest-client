@@ -34,23 +34,66 @@ const STATUS_TEXT = {
   "503": "Service Unavailable",
 };
 
+const AUTH_TYPES = [
+  {
+    value: "noauth",
+    label: "No Auth",
+  },
+  {
+    value: "basic",
+    label: "Basic Auth",
+  },
+  {
+    value: "bearer",
+    label: "Bearer Token",
+  },
+  // {
+  //   value: "digest",
+  //   label: "Digest Auth",
+  // },
+  // {
+  //   value: "oauth1",
+  //   label: "OAuth 1.0",
+  // },
+  // {
+  //   value: "oauth2",
+  //   label: "OAuth 2.0",
+  // },
+  // {
+  //   value: "apikey",
+  //   label: "API Key",
+  // },
+  // {
+  //   value: "hawk",
+  //   label: "Hawk Auth",
+  // },
+  // {
+  //   value: "aws",
+  //   label: "AWS Signature",
+  // },
+  // {
+  //   value: "ntlm",
+  //   label: "NTLM Auth",
+  // },
+];
+
 const TABS = [
   {
     value: "params",
     title: "Params",
   },
   {
-    value: "body",
-    title: "Body",
+    value: "auth",
+    title: "Authorization",
   },
-  // {
-  //   value: "auth",
-  //   title: "Auth",
-  // },
   {
     value: "headers",
     title: "Headers",
   },
+  {
+    value: "body",
+    title: "Body",
+  },
 ];
 
-export { HTTP_METHODS, STATUS_TEXT, TABS, METHOD_COLORS };
+export { HTTP_METHODS, STATUS_TEXT, TABS, METHOD_COLORS, AUTH_TYPES };

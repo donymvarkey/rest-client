@@ -34,52 +34,55 @@ const RequestHistory = () => {
 
   return (
     <div className="w-full">
-      <div>
+      <div className="flex flex-col gap-y-1 w-full">
         {history.length > 0 ? (
           <>
             {history?.map((h: any, index: number) => (
               <div
-                onClick={() => handleSelectFromHistory(h)}
+                className="flex w-full items-center justify-between hover:bg-slate-700 hover:cursor-pointer rounded px-2 py-1"
                 onMouseEnter={() => setHoverIndex(h?.id)}
                 onMouseLeave={() => setHoverIndex(null)}
                 key={index}
-                className="flex w-full items-center justify-between gap-x-2 py-1 hover:cursor-pointer hover:bg-zinc-700 hover:bg-opacity-50 rounded-sm"
               >
-                <div className="flex items-center justify-end w-[15%] ">
+                <div
+                  onClick={() => handleSelectFromHistory(h)}
+                  className="w-full flex items-center justify-center gap-x-2"
+                >
                   <div
-                    className={`bg-transparent
-                       shadow-none text-[0.7rem] font-medium text-right font-code ${getHttpMethodTextColor(
-                         h?.method?.label
-                       )} hover:bg-transparent`}
+                    className={`w-[15%] text-xs font-medium font-code ${getHttpMethodTextColor(
+                      h?.method?.label
+                    )}`}
                   >
                     {getHttpMethodShorts(h?.method?.label)}
                   </div>
+                  <div className="w-[85%] overflow-hidden text-ellipsis text-xs font-nunito font-normal">
+                    {h?.url}
+                  </div>
                 </div>
-                <div className="text-slate-100 font-nunito text-[0.7rem] w-[85%] overflow-hidden">
-                  <p className="text-ellipsis overflow-hidden">{h?.url}</p>
-                </div>
-                {hoverIndex === h?.id && (
-                  <div className="flex items-center px-2 gap-x-2">
-                    <CommonTooltip text="Add to Collection">
-                      <button
-                        className="shadow-none text-xs h-0
+                <div>
+                  {hoverIndex === h?.id && (
+                    <div className="flex items-center gap-x-2">
+                      <CommonTooltip text="Add to Collection">
+                        <button
+                          className="shadow-none text-xs h-0
                     text-blue-200 hover:bg-transparent flex items-center
                     float-end font-nunito"
-                      >
-                        <PlusCircle className="w-4 h-4" />
-                      </button>
-                    </CommonTooltip>
+                        >
+                          <PlusCircle className="w-4 h-4" />
+                        </button>
+                      </CommonTooltip>
 
-                    <CommonTooltip text="Delete">
-                      <button
-                        onClick={() => deleteItemFromHistory(h?.id)}
-                        className="bg-transparent shadow-none text-xs h-0 text-red-400 hover:bg-transparent flex items-center float-end font-nunito"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </CommonTooltip>
-                  </div>
-                )}
+                      <CommonTooltip text="Delete">
+                        <button
+                          onClick={() => deleteItemFromHistory(h?.id)}
+                          className="bg-transparent shadow-none text-xs h-0 text-red-400 hover:bg-transparent flex items-center float-end font-nunito"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </CommonTooltip>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </>
