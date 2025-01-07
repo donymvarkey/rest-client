@@ -41,3 +41,14 @@ export interface HistoryItem {
   body: any;
   method: any;
 }
+
+export type OptionSelectType = {
+  value: string;
+  label: string;
+};
+
+export type AuthHeadersType = {
+  token?: string;
+  username?: string;
+  password?: string;
+};

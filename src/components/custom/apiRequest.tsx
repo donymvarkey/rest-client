@@ -24,7 +24,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { createCollection } from "@/database/dbApi";
-import { validateUrl } from "@/utils";
+import { isObjectEmpty, validateUrl } from "@/utils";
 import {
   ApiRequestProps,
   CollectionType,
@@ -32,10 +32,11 @@ import {
   InputChangeEvent,
   SelectOption,
 } from "@/types";
+import AuthTab from "./authTab";
 
 const ApiRequest = ({ onSend }: ApiRequestProps) => {
   const dispatch = useDispatch();
-  const { url, method } = useSelector(
+  const { url, method, params, headers, body } = useSelector(
     ({ appConfig }: { appConfig: ConfigState }) => appConfig
   );
   const { collection } = useSelector(
@@ -48,6 +49,7 @@ const ApiRequest = ({ onSend }: ApiRequestProps) => {
     useState<CollectionType | null>(null);
   const [newCollection, setNewCollection] = useState(false);
   const [collectionName, setCollectionName] = useState("");
+  const [activeTab, setActiveTab] = useState("params");
 
   const getColor = (data: SelectOption) => {
     return METHOD_COLORS[data.value as keyof typeof METHOD_COLORS];
@@ -68,6 +70,22 @@ const ApiRequest = ({ onSend }: ApiRequestProps) => {
     }
     dispatch(setUrl(validatedUrl));
     dispatch(setBaseUrl(validatedUrl));
+  };
+
+  const isItemEmpty = (title: string) => {
+    const tabData: any = {
+      body: !isObjectEmpty(body),
+      params: params.length > 0,
+      headers: headers.length > 0,
+    };
+
+    if (activeTab !== title && tabData[title]) {
+      return (
+        <div className="w-2 h-2 ms-1 rounded-full bg-green-500 relative top-0 right-0" />
+      );
+    }
+
+    return null;
   };
 
   useEffect(() => {
@@ -153,14 +171,23 @@ const ApiRequest = ({ onSend }: ApiRequestProps) => {
         >
           <TabsList className="h-8">
             {TABS?.map((tab, index) => (
-              <TabsTrigger className="bg-none" key={index} value={tab.value}>
+              <TabsTrigger
+                onClick={() => setActiveTab(tab.value)}
+                className="bg-none"
+                key={index}
+                value={tab.value}
+              >
                 {tab.title}
+                {isItemEmpty(tab.value)}
               </TabsTrigger>
             ))}
           </TabsList>
           <Separator className="w-full bg-zinc-600" />
           <TabsContent value="params">
             <Params />
+          </TabsContent>
+          <TabsContent value="auth">
+            <AuthTab />
           </TabsContent>
           <TabsContent value="body">
             <Body />
