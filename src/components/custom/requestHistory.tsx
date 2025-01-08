@@ -8,7 +8,7 @@ import {
   setUrl,
   setUrlParams,
 } from "@/store/configSlice";
-import { PlusCircle, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { db } from "@/database";
 import { HistoryItem } from "@/types";
@@ -39,30 +39,31 @@ const RequestHistory = () => {
           <>
             {history?.map((h: any, index: number) => (
               <div
-                className="flex w-full items-center justify-between hover:bg-slate-700 hover:cursor-pointer rounded px-2 py-1"
+                className="flex w-full items-center justify-between hover:bg-zinc-900 hover:cursor-pointer rounded px-2 py-1"
                 onMouseEnter={() => setHoverIndex(h?.id)}
                 onMouseLeave={() => setHoverIndex(null)}
                 key={index}
               >
-                <div
-                  onClick={() => handleSelectFromHistory(h)}
-                  className="w-full flex items-center justify-center gap-x-2"
-                >
+                <div className="w-full flex items-center justify-start gap-x-2">
                   <div
-                    className={`w-[15%] text-xs font-medium font-code ${getHttpMethodTextColor(
-                      h?.method?.label
-                    )}`}
+                    role="button"
+                    onClick={() => handleSelectFromHistory(h)}
+                    className="flex-1 flex items-center justify-start gap-x-2"
                   >
-                    {getHttpMethodShorts(h?.method?.label)}
+                    <p
+                      className={`text-xs font-medium font-code text-left w-[30px] ${getHttpMethodTextColor(
+                        h?.method?.label
+                      )}`}
+                    >
+                      {getHttpMethodShorts(h?.method?.label)}
+                    </p>
+                    <span className="overflow-hidden text-ellipsis text-xs font-nunito font-normal">
+                      {h?.url}
+                    </span>
                   </div>
-                  <div className="w-[85%] overflow-hidden text-ellipsis text-xs font-nunito font-normal">
-                    {h?.url}
-                  </div>
-                </div>
-                <div>
                   {hoverIndex === h?.id && (
                     <div className="flex items-center gap-x-2">
-                      <CommonTooltip text="Add to Collection">
+                      {/* <CommonTooltip text="Add to Collection">
                         <button
                           className="shadow-none text-xs h-0
                     text-blue-200 hover:bg-transparent flex items-center
@@ -70,7 +71,7 @@ const RequestHistory = () => {
                         >
                           <PlusCircle className="w-4 h-4" />
                         </button>
-                      </CommonTooltip>
+                      </CommonTooltip> */}
 
                       <CommonTooltip text="Delete">
                         <button

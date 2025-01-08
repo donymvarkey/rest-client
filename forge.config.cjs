@@ -6,6 +6,7 @@ module.exports = {
     asar: true,
     name: "Restly",
     appCategoryType: "public.app-category.developer-tools",
+    icon: "./src/assets/logo.png",
   },
   rebuildConfig: {},
   makers: [

@@ -8,6 +8,7 @@ export interface Request {
   headers: {};
   params: [];
   createdAt: Date;
+  collectionId: string;
 }
 export interface Collections {
   id: string;
@@ -21,17 +22,11 @@ export const db = new Dexie("HistoryDB") as Dexie & {
 };
 
 db.version(1).stores({
-  history: "id, url, method, body, headers, params, createdAt",
+  history: "id, url, method, body, headers, params, createdAt, collectionId",
   collections: "id, name, createdAt",
 });
 
 db.history.hook("creating", function (primaryKey, obj) {
-  if (!obj.createdAt) {
-    obj.createdAt = Date.now(); // Add the default `createdAt` field
-  }
-});
-
-db.collections.hook("creating", function (primaryKey, obj) {
   if (!obj.createdAt) {
     obj.createdAt = Date.now(); // Add the default `createdAt` field
   }

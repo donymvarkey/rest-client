@@ -7,3 +7,18 @@ export const createCollection = (collectionName: string) => {
     name: collectionName,
   });
 };
+
+export const saveRequestToCollection = async (
+  requestId: string,
+  updatedData: object
+) => {
+  try {
+    const updated = await db.history.update(requestId, updatedData);
+    if (!updated) {
+      return false;
+    }
+    return true;
+  } catch (error: any) {
+    return error;
+  }
+};

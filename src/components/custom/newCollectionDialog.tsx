@@ -10,6 +10,7 @@ import { Separator } from "../ui/separator";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { createCollection } from "@/database/dbApi";
+import { useToast } from "@/hooks/use-toast";
 
 const NewCollection = ({
   open,
@@ -19,6 +20,7 @@ const NewCollection = ({
   onOpenChange: () => void;
 }) => {
   const [collectionName, setCollectionName] = useState("");
+  const { toast } = useToast();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -47,6 +49,10 @@ const NewCollection = ({
             onClick={() => {
               createCollection(collectionName);
               onOpenChange();
+              toast({
+                title: "Success",
+                description: `Collection ${collectionName} created.`,
+              });
             }}
             disabled={collectionName.length === 0}
             className="w-full"
