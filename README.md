@@ -1,30 +1,71 @@
-# React + TypeScript + Vite
+# Restly
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Restly is a REST API client built with React, Tailwind CSS, and Shadcn UI. Simple but effective.
 
-Currently, two official plugins are available:
+![Build Status](https://img.shields.io/github/actions/workflow/status/donymvarkey/restly/main.yml)
+![License](https://img.shields.io/github/license/donymvarkey/restly)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [Features](#features)
+- [Installation](#installation)
+- [Build](#build)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- Built with React for a modern UI experience.
+- Styled with Tailwind CSS for fast and responsive design.
+- Utilizes Shadcn UI components.
+- Simple and effective REST API client functionality.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Installation
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To install and set up the project, follow these steps:
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/donymvarkey/restly.git
+    cd restly
+    ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+## Build
+
+To build the app from source:
+
+1. To create the dist, run `npm run dist`
+2. To package the app, run `npm run package`
+3. To build the app (target output will be generated for the host machine) `npm run make`
+
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch with a descriptive name.(`git checkout -b your-feature-name`)
+3. Make your changes and commit.
+4. Push to the branch.
+5. Create a new Pull Request.
+
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/donymvarkey/restly/LICENSE) file for details.
+
+## Acknowledgements
+
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vite](https://vite.dev/)
+- [Shadcn UI](https://ui.shadcn.com/)
