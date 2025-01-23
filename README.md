@@ -6,6 +6,8 @@ Restly is a REST API client built with React, Tailwind CSS, and Shadcn UI. Simpl
 ![License](https://img.shields.io/github/license/donymvarkey/restly)
 ![Created At](https://img.shields.io/github/created-at/donymvarkey/restly)
 
+![restly](./images/Screenshot%202025-01-23%20at%2011.05.43 AM.png)
+
 ## Table of Contents
 
 - [Features](#features)
