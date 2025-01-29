@@ -69,10 +69,6 @@ app.on("activate", () => {
   }
 });
 
-app.on("ready", () => {
-  createWindow();
-});
-
 app.whenReady().then(() => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;

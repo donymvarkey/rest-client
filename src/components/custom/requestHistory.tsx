@@ -48,16 +48,20 @@ const RequestHistory = () => {
                   <div
                     role="button"
                     onClick={() => handleSelectFromHistory(h)}
-                    className="flex-1 flex items-center justify-start gap-x-2"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ")
+                        handleSelectFromHistory(h);
+                    }}
+                    className="flex-1 flex items-center gap-x-2 overflow-hidden"
                   >
                     <p
-                      className={`text-xs font-medium font-code text-left w-[30px] ${getHttpMethodTextColor(
+                      className={`text-xs font-medium font-code text-left ${getHttpMethodTextColor(
                         h?.method?.label
                       )}`}
                     >
                       {getHttpMethodShorts(h?.method?.label)}
                     </p>
-                    <span className="overflow-hidden text-ellipsis text-xs font-nunito font-normal">
+                    <span className="truncate text-ellipsis text-xs font-nunito font-normal">
                       {h?.url}
                     </span>
                   </div>
